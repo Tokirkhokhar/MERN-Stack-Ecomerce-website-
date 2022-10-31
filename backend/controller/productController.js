@@ -32,7 +32,9 @@ exports.getAllProducts=catchAsyncErrors(async(req , res)=>{
 exports.updateProduct=async(req,res,next)=>{
     let  product=await Product.findById(req.params.id);
     if(!product){
-        return res.status(404).json({message:"Product is not found!"})
+        return res.status(404).json({
+            success:false,
+            message:"Product is not found!"})
     }
     product=await Product.findByIdAndUpdate(req.params.id,req.body,{
         new:true,
@@ -57,6 +59,7 @@ exports.getProductsDetails=  catchAsyncErrors( async(req,res,next)=>{
         
     });
 });
+
 // Delete Product -- Admin
 exports.deleteProduct=async(req,res)=>{
     let product=await Product.findById(req.params.id);
